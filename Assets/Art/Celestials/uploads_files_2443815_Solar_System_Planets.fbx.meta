@@ -1,0 +1,168 @@
+fileFormatVersion: 2
+guid: 6918e51bebf894764874ffc25c59d9e0
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Earth
+    100004: Jupiter
+    100006: Light.002
+    100008: Mars
+    100010: Mercury
+    100012: Neptune
+    100014: Saturn
+    100016: Sun
+    100018: //RootNode
+    100020: Uranus
+    100022: Venus
+    400000: Camera
+    400002: Earth
+    400004: Jupiter
+    400006: Light.002
+    400008: Mars
+    400010: Mercury
+    400012: Neptune
+    400014: Saturn
+    400016: Sun
+    400018: //RootNode
+    400020: Uranus
+    400022: Venus
+    2000000: Camera
+    2100000: Earth
+    2100002: Earth_White
+    2100004: Eartth_Green
+    2100006: Jupiter_3
+    2100008: Jupiter_2
+    2100010: Jupiter_1
+    2100012: Mercury_2
+    2100014: Mars_1
+    2100016: Mercury_01
+    2100018: Mercury_02
+    2100020: Neptune_1
+    2100022: Neptune_3
+    2100024: Neptune_2
+    2100026: Saturn_3
+    2100028: Saturn_2
+    2100030: Saturn_1
+    2100032: Saturn_Ring
+    2100034: Sun
+    2100036: Uranus_1
+    2100038: Uranus_3
+    2100040: Uranus_2
+    2100042: Uranus_Ring
+    2100044: Venus_01
+    2100046: Venus_02
+    2300000: Earth
+    2300002: Jupiter
+    2300004: Mars
+    2300006: Mercury
+    2300008: Neptune
+    2300010: Saturn
+    2300012: Sun
+    2300014: Uranus
+    2300016: Venus
+    3300000: Earth
+    3300002: Jupiter
+    3300004: Mars
+    3300006: Mercury
+    3300008: Neptune
+    3300010: Saturn
+    3300012: Sun
+    3300014: Uranus
+    3300016: Venus
+    4300000: Earth
+    4300002: Jupiter
+    4300004: Mars
+    4300006: Mercury
+    4300008: Neptune
+    4300010: Saturn
+    4300012: Sun
+    4300014: Uranus
+    4300016: Venus
+    10800000: Light.002
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 1
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 2
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
