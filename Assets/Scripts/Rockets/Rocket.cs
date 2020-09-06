@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Planetarity.Celestials;
+using Planetarity.Models;
 using Planetarity.Models.Interfaces;
 using Planetarity.Utils;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Planetarity.Rockets
 {
@@ -25,11 +27,25 @@ namespace Planetarity.Rockets
         private ObjectsPool<Rocket> _pool;
         private Vector2? _steeringTarget;
         private IReadOnlyCollection<ICelestial> _celestials;
-        private Planet _homePlanet;
         private float _timeOfLunch;
 
         public RocketType RocketType => _rocketType;
         public float CooldownTime => _cooldownTime;
+        public Planet HomePlanet { get; private set; }
+
+        public RocketState GetRocketState()
+        {
+            return new RocketState
+            {
+                RocketType = _rocketType,
+                PlanetID = HomePlanet.ID,
+                Position = _rigidbody.position,
+                Rotation = _rigidbody.rotation,
+                Velocity = _rigidbody.velocity,
+                AngularVelocity = _rigidbody.angularVelocity,
+                LeftLifetime = _rocketLifetime - (Time.time -_timeOfLunch)
+            };
+        }
 
         private void Awake()
         {
@@ -41,8 +57,22 @@ namespace Planetarity.Rockets
             _rigidbody.velocity = initialVelocity;
             _rigidbody.angularVelocity = Vector3.zero;
             _pool = rocketsPool;
-            _homePlanet = planet;
+            HomePlanet = planet;
             _timeOfLunch = Time.time;
+            gameObject.SetActive(true);
+        }
+
+        public void Spawn(RocketState state, ObjectsPool<Rocket> rocketsPool, Planet planet)
+        {
+            var t = transform;
+            t.position = state.Position;
+            t.rotation = state.Rotation;
+            _rigidbody.velocity = state.Velocity;
+            _rigidbody.angularVelocity = state.AngularVelocity;
+            _pool = rocketsPool;
+            HomePlanet = planet;
+            _timeOfLunch = Time.time - (_rocketLifetime - state.LeftLifetime);
+            t.parent = planet.transform.parent;
             gameObject.SetActive(true);
         }
 
@@ -56,15 +86,21 @@ namespace Planetarity.Rockets
             _pool = null;
             _steeringTarget = null;
             _celestials = null;
-            _homePlanet = null;
+            HomePlanet = null;
             Destroyed = null;
         }
 
         public void SetSteeringTarget(Vector2? clickPosition) => _steeringTarget = clickPosition - transform.position;
 
+        public void DestroyRocket()
+        {
+            Destroyed?.Invoke();
+            _pool?.Release(this);
+        }
+
         private void Update()
         {
-            if (transform.position.magnitude > _operationalRadius || _rocketLifetime + _timeOfLunch > Time.time)
+            if (transform.position.magnitude > _operationalRadius || _rocketLifetime + _timeOfLunch < Time.time)
                 DestroyRocket();
         }
 
@@ -85,12 +121,6 @@ namespace Planetarity.Rockets
 
             hittable.Hit(_damage);
             DestroyRocket();
-        }
-
-        private void DestroyRocket()
-        {
-            Destroyed?.Invoke();
-            _pool?.Release(this);
         }
 
         public void Hit(float _)

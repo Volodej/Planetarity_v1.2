@@ -112,10 +112,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: ShapeModule.angle
+      value: 3.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6270104093685135914, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}
       propertyPath: m_Name
       value: RocketMedium
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.078
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7906011535473825617, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}

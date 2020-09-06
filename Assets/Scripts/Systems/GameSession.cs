@@ -15,7 +15,7 @@ namespace Planetarity.Systems
     public class GameSession
     {
         private readonly TaskCompletionSource<bool> _cancelTcs;
-        private IReadOnlyCollection<ICelestial> _allCelestials;
+        private readonly IReadOnlyCollection<ICelestial> _allCelestials;
 
         public GameSession(Sun sun, PlanetMover playerPlanet, IReadOnlyList<PlanetMover> enemyPlanets, HashSet<Rocket> rockets)
         {
@@ -27,30 +27,34 @@ namespace Planetarity.Systems
                 .Select(mover => (ICelestial) mover.GetComponent<Planet>())
                 .Append(sun)
                 .ToList();
+
+            foreach (var rocket in rockets)
+            {
+                RocketCreated(rocket);
+            }
         }
-        
 
         public bool IsActive { get; private set; }
         public PlanetMover PlayerPlanet { get; }
         public IReadOnlyList<PlanetMover> EnemyPlanets { get; }
-        public HashSet<Rocket> Rockets { get; } 
+        public HashSet<Rocket> Rockets { get; }
 
         public async Task<GameResult> Play()
         {
             IsActive = true;
             SubscribeToRocketsCreation();
-            
+
             var playerDestroyed = GetDestroyedTask(PlayerPlanet.gameObject);
             var allEnemiesDestroyed = Task.WhenAll(EnemyPlanets.Select(mover => GetDestroyedTask(mover.gameObject)));
             var canceledTask = _cancelTcs.Task;
-            
+
             foreach (var enemyPlanet in EnemyPlanets)
             {
                 enemyPlanet.GetComponent<EnemyPlanetController>().SetTarget(PlayerPlanet.transform);
             }
 
             await Task.WhenAny(playerDestroyed, allEnemiesDestroyed);
-            
+
             IsActive = false;
 
             if (playerDestroyed.IsCompleted)
@@ -61,7 +65,7 @@ namespace Planetarity.Systems
 
             if (canceledTask.IsCompleted)
                 return GameResult.Stopped;
-            
+
             throw new InvalidOperationException("None of tasks are finished, it's a bug.");
         }
 
@@ -70,9 +74,10 @@ namespace Planetarity.Systems
             _cancelTcs.TrySetResult(true);
             Object.Destroy(PlayerPlanet.gameObject);
             foreach (var enemyPlanet in EnemyPlanets)
-            {
                 Object.Destroy(enemyPlanet.gameObject);
-            }
+
+            foreach (var rocket in Rockets.ToList()) // Copy collection to avoid `Collection was modified` exception
+                rocket.DestroyRocket();
         }
 
         private Task GetDestroyedTask(GameObject planet)
@@ -88,13 +93,15 @@ namespace Planetarity.Systems
                 .Select(mover => mover.GetComponent<RocketLauncher>());
             foreach (var rocketLauncher in rocketLaunchers)
             {
-                rocketLauncher.RocketCreated += rocket =>
-                {
-                    rocket.SetCelestials(_allCelestials);
-                    Rockets.Add(rocket);
-                };
-                rocketLauncher.RocketDestroyed += rocket => Rockets.Remove(rocket);
+                rocketLauncher.RocketCreated += RocketCreated;
             }
+        }
+
+        private void RocketCreated(Rocket rocket)
+        {
+            rocket.SetCelestials(_allCelestials);
+            Rockets.Add(rocket);
+            rocket.Destroyed += () => Rockets.Remove(rocket);
         }
     }
 }

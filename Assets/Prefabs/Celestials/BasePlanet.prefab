@@ -551,6 +551,7 @@ MonoBehaviour:
   _planetModel: {fileID: 4625721121895548107}
   _size: 1
   _gravitationalParameter: 4
+  _id: 
 --- !u!114 &9222037762973905965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,6 +625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97623f495bfb4b2dad246d01e3886c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startSpeed: 5
+  _startSpeed: 4
   _cooldownTime: 0
   _cooldownStart: 0

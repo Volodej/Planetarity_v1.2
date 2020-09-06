@@ -51,7 +51,8 @@ namespace Planetarity.Systems
             return new GameState
             {
                 PlayerPlanet = playerPlanet,
-                EnemyPlanets = enemyPlanters
+                EnemyPlanets = enemyPlanters,
+                Rockets = new List<RocketState>()
             };
         }
 
@@ -80,7 +81,7 @@ namespace Planetarity.Systems
 
             var rocketLauncherState = new RocketLauncherState
             {
-                LeftCooldown = 0,
+                LeftCooldown = 3,
                 RocketType = RocketTypes.RandomElement()
             };
 

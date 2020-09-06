@@ -9,9 +9,11 @@ namespace Planetarity.Celestials
         [SerializeField] private Transform _planetModel;
         [SerializeField] private float _size;
         [SerializeField] private float _gravitationalParameter;
+        [SerializeField] private string _id;
 
         public Quaternion CurrentRotation => _planetModel.localRotation;
         public Quaternion RotationPerSecond { get; private set; }
+        public string ID => _id;
 
         public float Size => _size;
         public float GravitationalParameter => _gravitationalParameter;
@@ -20,6 +22,7 @@ namespace Planetarity.Celestials
 
         public void Construct(PlanetState planetState)
         {
+            _id = planetState.ID;
             _size = planetState.PlanetProperties.Size;
             _gravitationalParameter = planetState.PlanetProperties.GravitationalParameter;
             transform.localScale = Vector3.one * _size;

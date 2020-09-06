@@ -175,6 +175,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: RocketBig
       objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.095
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 7906011535473825617, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}
       propertyPath: m_Drag

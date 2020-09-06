@@ -6,5 +6,6 @@ namespace Planetarity.Models
     {
         public PlanetState PlayerPlanet;
         public List<PlanetState> EnemyPlanets;
+        public List<RocketState> Rockets;
     }
 }

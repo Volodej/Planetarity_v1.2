@@ -1,15 +1,12 @@
 using Planetarity.Celestials;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Planetarity.Controllers
 {
     public class PlayerPlanetController : BasePlanetController
     {
         private Camera _camera;
-
-        private void Awake()
-        {
-        }
 
         public static PlayerPlanetController AttachTo(RocketLauncher rocketLauncher)
         {
@@ -21,7 +18,8 @@ namespace Planetarity.Controllers
         
         protected override Vector2? GetTarget()
         {
-            if (Input.GetMouseButton(0) == false)
+            var overUI = EventSystem.current.IsPointerOverGameObject();
+            if (overUI || Input.GetMouseButton(0) == false)
                 return null;
 
             return _camera.ScreenToWorldPoint(Input.mousePosition);

@@ -18,16 +18,19 @@ namespace Planetarity.Celestials
         private PlanetMover _planetMover;
         private ObjectsPool<Rocket> _rocketsPool;
         private Planet _planet;
+        
+        public RocketType RocketType { get; private set; }
 
-        private float LeftCooldown => Mathf.Max(0, _cooldownStart + _cooldownTime - Time.time);
+        public float LeftCooldown => Mathf.Max(0, _cooldownStart + _cooldownTime - Time.time);
         public bool IsInCooldown => LeftCooldown > 0;
 
-        public void Construct(Planet planet, ObjectsPool<Rocket> rocketsPool, float leftCooldown)
+        public void Construct(Planet planet, ObjectsPool<Rocket> rocketsPool, RocketType rocketType, float leftCooldown)
         {
             _rocketsPool = rocketsPool;
             _cooldownStart = Time.time;
             _cooldownTime = leftCooldown;
             _planet = planet;
+            RocketType = rocketType;
         }
 
         private void Start()

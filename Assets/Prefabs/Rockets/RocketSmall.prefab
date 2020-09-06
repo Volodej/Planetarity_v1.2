@@ -45,7 +45,7 @@ PrefabInstance:
     - target: {fileID: 661158406367767617, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.010940075
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220305075214721142, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}
@@ -102,10 +102,60 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.9711505
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0.5411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: ShapeModule.angle
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.6373062
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739938167707144265, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 0.96984863
+      objectReference: {fileID: 0}
     - target: {fileID: 6270104093685135914, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}
       propertyPath: m_Name
       value: RocketSmall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.066
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542702661906832, guid: 955edf8de07d146f784ec5bda5eb39da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7906011535473825617, guid: 955edf8de07d146f784ec5bda5eb39da,
         type: 3}
@@ -133,7 +183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 5010a978fbd274c51be2bd70c15969a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 5010a978fbd274c51be2bd70c15969a7, type: 3}
       propertyPath: m_LocalPosition.y

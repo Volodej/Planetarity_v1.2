@@ -22,6 +22,12 @@ namespace Planetarity.Controllers
             }
         }
 
+        public void SetControlledRocket(Rocket rocket)
+        {
+            _controlledRocket = rocket;
+            _controlledRocket.Destroyed += () => _controlledRocket = null;
+        }
+
         protected virtual void Update()
         {
             switch (State)

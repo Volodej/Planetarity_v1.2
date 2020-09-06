@@ -9,7 +9,7 @@ namespace Planetarity.Celestials
     {
         public event Action<float> HealthPercentageChanged;
         public event Action PlanetDestroyed;
-        
+
         [SerializeField] private float _totalHealth;
         [SerializeField] private float _currentHealth;
 
@@ -22,7 +22,10 @@ namespace Planetarity.Celestials
         {
             _totalHealth = healthState.TotalHealth;
             _currentHealth = healthState.CurrentHealth;
+        }
 
+        private void Start()
+        {
             if (_currentHealth <= 0)
                 KillPlanet();
         }

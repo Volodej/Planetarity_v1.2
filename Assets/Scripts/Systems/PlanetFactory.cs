@@ -4,6 +4,7 @@ using System.Linq;
 using Planetarity.Celestials;
 using Planetarity.Controllers;
 using Planetarity.Models;
+using Planetarity.Rockets;
 using Planetarity.Utils;
 using UnityEngine;
 
@@ -34,6 +35,16 @@ namespace Planetarity.Systems
             return planetInstance;
         }
 
+        public Rocket SpawnRocket(RocketState rocketState, Dictionary<string, Planet> planets)
+        {
+            var pool = _rocketPoolHolder.GetPool(rocketState.RocketType);
+            var rocket = pool.Borrow();
+            var homePlanet = planets[rocketState.PlanetID];
+            rocket.Spawn(rocketState, pool, homePlanet);
+            homePlanet.GetComponent<BasePlanetController>().SetControlledRocket(rocket);
+            return rocket;
+        }
+
         private PlanetMover CreatePlanet(PlanetState planetState)
         {
             var random = new System.Random(planetState.RandomSeed);
@@ -59,7 +70,8 @@ namespace Planetarity.Systems
 
             var launcherState = planetState.RocketLauncherState;
             var rocketLauncher = instance.GetComponent<RocketLauncher>();
-            rocketLauncher.Construct(planet, _rocketPoolHolder.GetPool(launcherState.RocketType), launcherState.LeftCooldown);
+            rocketLauncher.Construct(planet, _rocketPoolHolder.GetPool(launcherState.RocketType),
+                launcherState.RocketType, launcherState.LeftCooldown);
             rocketLauncher.CooldownTimeUpdated += planetHud.SetReloadTime;
 
             return instance;

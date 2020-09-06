@@ -21,5 +21,7 @@ namespace Planetarity.Utils
                 list[n] = value;  
             }  
         }
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> enumerable) => new HashSet<T>(enumerable);
     }
 }

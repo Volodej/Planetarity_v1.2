@@ -11,7 +11,8 @@ namespace Planetarity.Systems
             return new GameState
             {
                 PlayerPlanet = GetStateFromPlanet(gameSession.PlayerPlanet),
-                EnemyPlanets = gameSession.EnemyPlanets.Select(GetStateFromPlanet).ToList()
+                EnemyPlanets = gameSession.EnemyPlanets.Select(GetStateFromPlanet).ToList(),
+                Rockets = gameSession.Rockets.Select(rocket => rocket.GetRocketState()).ToList()
             };
         }
 
@@ -19,6 +20,7 @@ namespace Planetarity.Systems
         {
             var planetComponent = planetMover.GetComponent<Planet>();
             var damageablePlanet = planetMover.GetComponent<DamageablePlanet>();
+            var rocketLauncher = planetMover.GetComponent<RocketLauncher>();
 
             var orbitalState = new OrbitalState
             {
@@ -40,11 +42,19 @@ namespace Planetarity.Systems
                 TotalHealth = damageablePlanet.TotalHealth
             };
 
+            var rocketLauncherState = new RocketLauncherState
+            {
+                RocketType = rocketLauncher.RocketType,
+                LeftCooldown = rocketLauncher.LeftCooldown
+            };
+
             var planetState = new PlanetState
             {
+                ID = planetComponent.ID,
                 OrbitalState = orbitalState,
                 PlanetProperties = planetProperties,
                 HealthState = healthState,
+                RocketLauncherState = rocketLauncherState,
                 RandomSeed = planetComponent.RandomSeed
             };
 

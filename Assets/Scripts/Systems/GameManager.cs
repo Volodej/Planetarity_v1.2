@@ -56,7 +56,7 @@ namespace Planetarity.Systems
                     PlayGame(_saveSystem.LoadGameState());
                     break;
                 case MainMenuAction.Exit:
-                    Application.Quit();
+                    QuitApplication();
                     break;
                 case MainMenuAction.BackToGame:
                     _gamePlayController.ApplyPauseState(PauseState.Unpaused);
@@ -92,6 +92,14 @@ namespace Planetarity.Systems
             }
 
             HandleMainMenu();
+        }
+
+        private void QuitApplication()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
         }
     }
 }

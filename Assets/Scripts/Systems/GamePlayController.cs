@@ -5,6 +5,7 @@ using Planetarity.Cameras;
 using Planetarity.Celestials;
 using Planetarity.Models;
 using Planetarity.Rockets;
+using Planetarity.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -42,12 +43,14 @@ namespace Planetarity.Systems
                 .Select(_planetFactory.SpawnEnemyPlanet)
                 .ToList();
 
-            _gameSession = new GameSession(_sun, playerPlanet, enemyPlanets, new HashSet<Rocket>()); // TODO: add rockets
+            var planets = enemyPlanets.Append(playerPlanet)
+                .Select(mover => mover.GetComponent<Planet>())
+                .ToDictionary(planet => planet.ID, planet => planet);
+            var rockets = gameState.Rockets.Select(rocket => _planetFactory.SpawnRocket(rocket, planets)).ToHashSet();
 
-            _camerasController.SwitchToPlanet(playerPlanet.gameObject);
-            var playerRocketLauncher = playerPlanet.GetComponent<RocketLauncher>();
-            playerRocketLauncher.RocketCreated += rocket => _camerasController.SwitchToRocket(rocket.gameObject);
-            playerRocketLauncher.RocketDestroyed += _ => _camerasController.SwitchToPlanet(playerPlanet.gameObject);
+            _gameSession = new GameSession(_sun, playerPlanet, enemyPlanets, rockets);
+
+            HandlePlayerCamera(playerPlanet, rockets);
 
             return _gameSession.Play();
         }
@@ -62,5 +65,24 @@ namespace Planetarity.Systems
             _gameSession?.Stop();
             _gameSession = null;
         }
+
+        private void HandlePlayerCamera(PlanetMover playerPlanet, HashSet<Rocket> rockets)
+        {
+            var playerRocketLauncher = playerPlanet.GetComponent<RocketLauncher>();
+            playerRocketLauncher.RocketCreated += rocket => _camerasController.SwitchToRocket(rocket.gameObject);
+            playerRocketLauncher.RocketDestroyed += _ => _camerasController.SwitchToPlanet(playerPlanet.gameObject);
+
+            var playerRocket = rockets.SingleOrDefault(rocket => rocket.HomePlanet == playerPlanet.GetComponent<Planet>());
+            if (playerRocket == null)
+            {
+                _camerasController.SwitchToPlanet(playerPlanet.gameObject);
+            }
+            else
+            {
+                _camerasController.SwitchToRocket(playerRocket.gameObject);
+                playerRocket.Destroyed += () => _camerasController.SwitchToPlanet(playerPlanet.gameObject);
+            }
+        }
+        
     }
 }
