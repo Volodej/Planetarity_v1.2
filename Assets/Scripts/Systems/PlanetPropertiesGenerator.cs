@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Planetarity.Models;
+using Planetarity.Rockets;
+using Planetarity.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +11,8 @@ namespace Planetarity.Systems
 {
     public class PlanetPropertiesGenerator : MonoBehaviour
     {
+        private static List<RocketType> RocketTypes = Enum.GetValues(typeof(RocketType)).Cast<RocketType>().ToList();
+        
         [SerializeField, Range(3, 30)]
         private float _minRadius = 5;
 
@@ -73,12 +78,20 @@ namespace Planetarity.Systems
                 TotalHealth = _planetGenerationProperties.PlanetHealth
             };
 
+            var rocketLauncherState = new RocketLauncherState
+            {
+                LeftCooldown = 0,
+                RocketType = RocketTypes.RandomElement()
+            };
+
             return new PlanetState
             {
+                ID = Guid.NewGuid().ToString(),
                 RandomSeed = Random.Range(int.MinValue, int.MaxValue),
                 OrbitalState = orbitalState,
                 PlanetProperties = planetProperties,
-                HealthState = healthState
+                HealthState = healthState,
+                RocketLauncherState = rocketLauncherState
             };
         }
 

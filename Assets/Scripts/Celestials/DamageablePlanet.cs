@@ -7,14 +7,13 @@ namespace Planetarity.Celestials
 {
     public class DamageablePlanet : MonoBehaviour, IHittable
     {
-        public Action<float> HealthPercentageChanged;
-        public Action PlanetDestroyed;
+        public event Action<float> HealthPercentageChanged;
+        public event Action PlanetDestroyed;
         
         [SerializeField] private float _totalHealth;
         [SerializeField] private float _currentHealth;
 
         private PlanetVisuals _planetVisuals;
-        private IPlanetController _planetController;
 
         public float TotalHealth => _totalHealth;
         public float CurrentHealth => _currentHealth;

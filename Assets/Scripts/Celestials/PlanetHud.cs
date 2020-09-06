@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,12 @@ namespace Planetarity.Celestials
 
         [SerializeField] private Color _playerHealthColor;
         [SerializeField] private Color _enemyHealthColor;
-        
+
+        private void Awake()
+        {
+            _canvas.worldCamera = Camera.main;
+        }
+
         public void SetupForPlayer()
         {
             _reloadText.gameObject.SetActive(true);

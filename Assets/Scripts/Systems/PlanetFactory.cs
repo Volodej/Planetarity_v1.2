@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Planetarity.Celestials;
+using Planetarity.Controllers;
 using Planetarity.Models;
 using Planetarity.Utils;
 using UnityEngine;
@@ -12,8 +13,11 @@ namespace Planetarity.Systems
     {
         [SerializeField] private Transform _solarSystemRoot;
         [SerializeField] private Sun _sun;
+        [SerializeField] private RocketPoolHolder _rocketPoolHolder;
         [SerializeField] private List<PlanetMover> _planetPrefabs;
         [SerializeField] private List<Palette> _palettes;
+
+        [SerializeField] private EnemyControllerSettings _enemyControllerSettings;
 
         public PlanetMover SpawnPlayerPlanet(PlanetState planetState)
         {
@@ -39,18 +43,24 @@ namespace Planetarity.Systems
             instance.Construct(planetState.OrbitalState, _sun);
             var planet = instance.GetComponent<Planet>();
             planet.Construct(planetState);
-            
+
             var planetVisuals = instance.GetComponent<PlanetVisuals>();
             planetVisuals.SetColors(GetPlanetPalette(random));
-            
+
+            var healthState = planetState.HealthState;
             var planetHud = instance.GetComponent<PlanetHud>();
-            planetHud.SetHealth(planetState.HealthState.CurrentHealth / planetState.HealthState.TotalHealth);
+            planetHud.SetHealth(healthState.CurrentHealth / healthState.TotalHealth);
 
             var damageablePlanet = instance.GetComponent<DamageablePlanet>();
-            damageablePlanet.Construct(planetState.HealthState);
+            damageablePlanet.Construct(healthState);
             damageablePlanet.PlanetDestroyed += planetVisuals.MarkAsDead;
             damageablePlanet.PlanetDestroyed += planetHud.MarkAsDead;
             damageablePlanet.HealthPercentageChanged += planetHud.SetHealth;
+
+            var launcherState = planetState.RocketLauncherState;
+            var rocketLauncher = instance.GetComponent<RocketLauncher>();
+            rocketLauncher.Construct(planet, _rocketPoolHolder.GetPool(launcherState.RocketType), launcherState.LeftCooldown);
+            rocketLauncher.CooldownTimeUpdated += planetHud.SetReloadTime;
 
             return instance;
         }
@@ -62,12 +72,22 @@ namespace Planetarity.Systems
             return paletteCopy;
         }
 
-        private void SetupEnemyPlanet(PlanetMover planetInstance)
-        {
-        }
-
         private void SetupPlayerPlanet(PlanetMover planetInstance)
         {
+            planetInstance.GetComponent<PlanetHud>().SetupForPlayer();
+            var rocketLauncher = planetInstance.GetComponent<RocketLauncher>();
+            var damageablePlanet = planetInstance.GetComponent<DamageablePlanet>();
+            var controller = PlayerPlanetController.AttachTo(rocketLauncher);
+            damageablePlanet.PlanetDestroyed += () => controller.enabled = false;
+        }
+
+        private void SetupEnemyPlanet(PlanetMover planetInstance)
+        {
+            planetInstance.GetComponent<PlanetHud>().SetupForEnemy();
+            var rocketLauncher = planetInstance.GetComponent<RocketLauncher>();
+            var damageablePlanet = planetInstance.GetComponent<DamageablePlanet>();
+            var controller = EnemyPlanetController.AttachTo(rocketLauncher, _enemyControllerSettings);
+            damageablePlanet.PlanetDestroyed += () => controller.enabled = false;
         }
 
         [Serializable]

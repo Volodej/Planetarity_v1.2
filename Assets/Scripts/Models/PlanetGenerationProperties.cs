@@ -7,7 +7,7 @@ namespace Planetarity.Models
     {
         public float MinSize = 0.4f;
         public float MaxSize = 1f;
-        public float GravitationalParameterPerUnitSize = 10;
+        public float GravitationalParameterPerUnitSize = 5;
         public float PlanetHealth = 100;
     }
 }

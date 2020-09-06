@@ -483,6 +483,7 @@ GameObject:
   - component: {fileID: 6744695234566726883}
   - component: {fileID: 2314399940274320330}
   - component: {fileID: 6094417524038438344}
+  - component: {fileID: 5132442675929416181}
   m_Layer: 0
   m_Name: BasePlanet
   m_TagString: Untagged
@@ -549,7 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planetModel: {fileID: 4625721121895548107}
   _size: 1
-  _gravitationalParameter: 10
+  _gravitationalParameter: 4
 --- !u!114 &9222037762973905965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +563,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bed90a8e8b4b678980e0e92786135a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _orbitalPeriod: 0
+  _sun: {fileID: 0}
+  _radius: 0
+  _phasingFactor: 0
 --- !u!114 &6744695234566726883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,3 +612,18 @@ MonoBehaviour:
   _reloadText: {fileID: 4142372280435836237}
   _playerHealthColor: {r: 0, g: 1, b: 0, a: 1}
   _enemyHealthColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &5132442675929416181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222037762973905962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97623f495bfb4b2dad246d01e3886c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startSpeed: 5
+  _cooldownTime: 0
+  _cooldownStart: 0

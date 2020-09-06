@@ -16,8 +16,8 @@ namespace Planetarity.UI
 
         private PauseState _pauseState;
 
-        public Action MainMenuRequested;
-        public Action<PauseState> PauseStateChanged;
+        public event Action MainMenuRequested;
+        public event Action<PauseState> PauseStateChanged;
 
         public void Show(PauseState pauseState)
         {

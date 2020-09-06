@@ -1,9 +1,10 @@
 using Planetarity.Models;
+using Planetarity.Models.Interfaces;
 using UnityEngine;
 
 namespace Planetarity.Celestials
 {
-    public class Planet : MonoBehaviour
+    public class Planet : MonoBehaviour, ICelestial
     {
         [SerializeField] private Transform _planetModel;
         [SerializeField] private float _size;
@@ -14,6 +15,7 @@ namespace Planetarity.Celestials
 
         public float Size => _size;
         public float GravitationalParameter => _gravitationalParameter;
+        public Vector3 Position => transform.position;
         public int RandomSeed { get; private set; }
 
         public void Construct(PlanetState planetState)
